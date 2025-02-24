@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Katakana Introduction</title>
+<link rel="stylesheet" href="button.css">
+<link rel="stylesheet" href="hiragana.css">
+<!-- <link rel="stylesheet" href="katakana.css"> -->
+</head>
+<body>
+
+    <a href="/menu.html">
+        <img class="logo" src="../img/LogoWI.png" alt="image" width="200" height="200">
+    </a>
+    
+    <br><br><br>
+    
+    <h1 style="margin-top: 0;">CONTOH</h1>
+
+
+    <CENTer><table style="width:90%">
+        <tr>
+            <td><img src="https://www.thoughtco.com/thmb/WzKe_2Sm7Gj-JbWwsUcDURRXkmg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Konnichiwa-58b8e42b3df78c353c250f3b.jpg" alt="T" style="width:300px;height:300px;"></td>
+            <td><img src="https://www.thoughtco.com/thmb/3pzoI0zSg_eEcz0MpsOC4nDv4nE=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Konbanwa-58b8e4275f9b58af5c910df6.jpg" alt="S" style="width:300px;height:300px;" onclick="generateVoice('');"></td>
+            <td><img src="https://www.thoughtco.com/thmb/Y617a7Iy4kzRYxFL5LaDjIs5nh0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Oyasuminasai-58b8e4223df78c353c250d13.jpg" alt="AC" style="width:300px;height:300px;" onclick="generateVoice('');"></td>
+        </tr>
+        <tr>
+            <td>こんにちは</td>
+            <td>こんばんは</td>
+            <td>おやすみ</td>
+        </tr>
+    </table></CENTer>
+
+<p>1) こんにちは - Konnichiwa<br>selamat tengah hari</p>
+<p>2) こんばんは - Konbanwa<br> selamat petang</p>
+<p>2) おやすみ - Oyasuminasai<br> selamat malam</p>
+
+<button class="custom-btn btn-16" onclick="window.location.href='game1.html'">SETERUSNYA</button>
+
+<!-- Back button -->
+<button class="custom-btn back-btn" onclick="goBack()">KEMBALI</button>
+
+<script>
+    // JavaScript function to go back
+    function goBack() {
+        window.history.back();
+    }
+</script>
+    
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mixed Games 1</title>
+  <link rel="stylesheet" href="../katakana/button.css">
+  <link rel="stylesheet" href="../katakana/katakana.css">
+  <style>
+    div {
+      margin-top: 50px;
+    }
+
+    td {
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    td:hover {
+      background-color: #e0e0e0;
+    }
+
+    .correct {
+      background-color: #8fda8f !important;
+    }
+
+    .incorrect {
+      background-color: #f58a8a !important;
+    }
+
+    #notification {
+      display: none;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+
+    #notification.correct {
+      background-color: #8fda8f;
+    }
+
+    #notification.incorrect {
+      background-color: #f58a8a;
+    }
+
+    #homeButton {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .back-btn {
+    margin: 25px 10px 10px 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="mixedGamesMenu2.html">
+    <img class="logo" src="../img/logoWI.png" alt="image" width="200" height="200">
+  </a>
+
+  <br><br><br>
+  <h1 style="margin-top: 100px;">PILIH HURUF <span style="color: #f58a8a;">KATAKANA</span> YANG BETUL</h1>
+
+<h2>BUNYI APAKAH INI?</h2>
+<a href="#" onclick="playAudio('../audio/ro.mp3')"><img src="../katakana/Img/Audio.png" alt="E" style="width:70px;height:70px;"></a>
+
+<div>
+  <table id="katakanaTable" style="width:100%">
+    <tr>
+        <td onmouseover="hoverEffect(this)" onclick="checkAnswerAndPlayAudio(this, '../audio/wrong.mp3')">ろ</td>
+        <td onmouseover="hoverEffect(this)" onclick="checkAnswerAndPlayAudio(this, '../audio/correct.mp3')">ロ</td>
+        <td onmouseover="hoverEffect(this)" onclick="checkAnswerAndPlayAudio(this, '../audio/wrong.mp3')">リ</td>
+        <td onmouseover="hoverEffect(this)" onclick="checkAnswerAndPlayAudio(this, '../audio/wrong.mp3')">と</td>
+        <td onmouseover="hoverEffect(this)" onclick="checkAnswerAndPlayAudio(this, '../audio/wrong.mp3')">ト</td>
+        
+    </tr>
+  </table>
+</div>
+
+<div id="notification"></div>
+
+<button id="homeButton" class="custom-btn btn-16" onclick="window.location.href='MGgame3.html'">GAME 2</button>
+<button class=" back-btn" onclick="window.location.href='MGHiraganaTable.html'">LIHAT CARTA</button>
+
+<script>
+  var answerSelected = false;
+
+  function hoverEffect(element) {
+    if (!answerSelected) {
+      element.style.backgroundColor = '#e0e0e0';
+    }
+  }
+
+  function showNotification(message, type) {
+    var notification = document.getElementById('notification');
+    notification.innerHTML = message;
+    notification.className = type;
+    notification.style.display = 'block';
+
+    if (type === 'correct') {
+      var homeButton = document.getElementById('homeButton');
+      homeButton.style.display = 'block';
+    }
+
+    if (type === 'incorrect') {
+      setTimeout(function () {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+  }
+   
+  function checkAnswer(element) { 
+    var selectedKatakana = element.innerHTML;
+
+    if (selectedKatakana === 'ロ') {
+      answerSelected = true;
+      element.classList.add('correct');
+      showNotification('Tahniah! Jawapan Benar!', 'correct');
+    } else {
+      element.classList.add('incorrect');
+      showNotification('Jawapan Salah. Cuba lagi!', 'incorrect');
+    }
+
+    element.onmouseover = null;
+    //element.onclick = null;
+  }
+
+  function checkAnswerAndPlayAudio(element, audioPath) {
+  if (!answerSelected) {
+    playAudio(audioPath);
+    checkAnswer(element);
+  }
+}
+
+</script>
+<script src="../audioJS.js"></script>
+</body>
+</html>

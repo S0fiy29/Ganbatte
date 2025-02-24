@@ -1,0 +1,192 @@
+<!--http://www.elated.com/articles/drag-and-drop-with-jquery-your-essential-guide/-->
+<!doctype html>
+<html lang="en">
+<head>
+
+    <title>A jQuery Drag-and-Drop Number Cards Game</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="MGstyle.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chewy&display=swap">
+
+    <style>
+        .logo {
+            position: absolute;
+            top: 0px;
+            left: 10px;
+            padding-left: 40px;
+            }
+        
+        .custom-btn {
+            font-family: 'Chewy';
+            min-width: 150px; /* Set minimum width */
+            height: 50px;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 25px;
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 2px;
+            background: #F66F8D;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+            border: none;
+            position: relative;
+            float: center;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .custom-btn:hover {
+            background: transparent;
+            color: #000000;
+        }
+
+        .custom-btn:after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            direction: rtl;
+            z-index: -1;
+            box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9, 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+            transition: all 0.3s ease;
+        }
+
+        .custom-btn:hover:after {
+            left: auto;
+            right: 0;
+            width: 100%;
+        }
+
+    </style>
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+
+    // audio files
+    var correctSound = document.createElement('audio');
+    correctSound.setAttribute('src', 'https://opengameart.org/sites/default/files/correct_sound_effect_1.mp3');
+    var errorSound = document.createElement('audio');
+    errorSound.setAttribute('src', 'https://soundboardguy.com/wp-content/uploads/2021/07/spongebob-fail.mp3');
+    
+    var correctCards = 0;
+    $( init );
+
+    function init() {
+
+    // Hide the success message
+    $('#successMessage').hide();
+    $('#successMessage').css( {
+        left: '580px',
+        top: '250px',
+        width: 0,
+        height: 0
+    } );
+
+    // Reset the game
+    correctCards = 0;
+    $('#cardPile').html( '' );
+    $('#cardSlots').html( '' );
+
+    // Create the pile of shuffled cards
+    var numbers = [ 1, 2, 3, 4, 5, 6];
+    var terms = ['こんにちは', 'テレビ', 'ミルク', 'せんせい', 'エアコン', 'おやすみ'];
+    <!--numbers.sort( function() { return Math.random() - .5 } );-->
+
+    for ( var i=0; i<6; i++ ) {
+        $('<div>' + terms[i] + '</div>').data( 'number', numbers[i] ).attr( 'id', 'card'+numbers[i] ).appendTo( '#cardPile' ).draggable( {
+        
+        stack: '#cardPile div',
+        cursor: 'move',
+        revert: true
+        } );
+    }
+
+    // Create the card slots
+    var words = [ 'KONNICHIWA ( Selamat Pagi )', 'TEREBI ( Televisyen )', 'MIRUKU ( Susu )', 'SENSEI ( Cikgu )', 'AIRCON ( Pendingin Hawa )', 'OYASUMI ( Selamat Malam )' ];
+    for ( var i=1; i<=6; i++ ) {
+        $('<div>' + words[i-1] + '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
+        accept: '#cardPile div',
+        hoverClass: 'hovered',
+        drop: handleCardDrop
+        } );
+    }
+
+    }
+
+    function handleCardDrop( event, ui ) {
+    var slotNumber = $(this).data( 'number' );
+    var cardNumber = ui.draggable.data( 'number' );
+
+    // If the card was dropped to the correct slot,
+    // change the card colour, position it directly
+    // on top of the slot, and prevent it being dragged
+    // again
+
+    if ( slotNumber == cardNumber ) {
+        ui.draggable.addClass( 'correct' );
+        ui.draggable.draggable( 'disable' );
+        $(this).droppable( 'disable' );
+        ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+        ui.draggable.draggable( 'option', 'revert', false );
+        correctCards++;
+        correctSound.play();
+    }
+    else{
+        errorSound.play();
+    } 
+    
+    // If all the cards have been placed correctly then display a message
+    // and reset the cards for another go
+
+    if ( correctCards == 6 ) {
+        $('#successMessage').show();
+        $('#successMessage').animate( {
+        left: '380px',
+        top: '200px',
+        width: '400px',
+        height: '100px',
+        opacity: 1
+        } );
+    }
+
+    }
+
+    </script>
+
+</head>
+<body>
+
+    <a href="mixedGamesMenu2.html">
+        <img class="logo" src="../img/logoWI.png" alt="image" width="200" height="200">
+    </a>
+
+    <h2>PADANKAN DENGAN MAKSUD YANG BETUL</h2>
+
+    <div class="wideBox"></div>
+
+    <div id="content">
+
+    <div id="cardPile"> </div>
+    <div id="cardSlots"> </div>
+
+    <div id="successMessage">
+        <h3>SUBARASHII! ANDA <span style="color: #F66F8D;">PAKAR BAHASA JEPUN!</span></h3>
+        <button class="custom-btn" onclick="window.location.href='../menu.html'">Tamat</button>
+    </div>
+
+    </div>
+    <!-- coding source
+    <div class="wideBox">
+    <p>Original Project & Concept &copy; Elated.com | <a href="http://www.elated.com/articles/drag-and-drop-with-jquery-your-essential-guide/">See Elated.com Tutorial</a></p>
+    <p style="font-size: .8em; line-height: 1.5em;"><a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This <span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Text" rel="dc:type">derivative</span> by Mike Wood is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</p>
+    </div>
+    -->
+</body>
+</html>
+

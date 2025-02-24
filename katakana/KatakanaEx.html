@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Katakana Introduction</title>
+<link rel="stylesheet" href="button.css">
+<link rel="stylesheet" href="katakana.css">
+<!-- <link rel="stylesheet" href="katakana.css"> -->
+</head>
+<body>
+
+    <a href="../menu.html">
+        <img class="logo" src="../img/logoWI.png" alt="image" width="200" height="200">
+    </a>
+    
+    <br><br><br>
+    <h1 style="margin-top: 0;">CONTOH</h1>
+
+
+    <table style="width:100%">
+        <tr>
+            <td><img src="Img/TV.png" alt="T" style="width:250px;height:250px;" onclick="generateVoice('');"></td>
+            <td><img src="Img/sofa.png" alt="S" style="width:300px;height:300px;" onclick="generateVoice('');"></td>
+            <td><img src="Img/aircond.png" alt="AC" style="width:300px;height:300px;" onclick="generateVoice('');"></td>
+        </tr>
+        <tr>
+            <td>テレビ</td>
+            <td>ソファー</td>
+            <td>エアコン</td>
+        </tr>
+    </table>
+
+<p>1) テレビがあります <br> Terebi ga arimasu</p>
+<p>2) ソファもあります <br> Sofa mo arimasu</p>
+
+<button class="custom-btn btn-16" onclick="window.location.href='game1.html'">SETERUSNYA</button>
+
+<!-- Back button -->
+<button class="custom-btn back-btn" onclick="goBack()">KEMBALI</button>
+
+<script>
+    // JavaScript function to go back
+    function goBack() {
+        window.history.back();
+    }
+</script>
+    
+
+</body>
+</html>
